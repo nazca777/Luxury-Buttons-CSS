@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css?family=Quicksand");
+
+$sand: #F9BF3B;
+$rose: #E26A6A;
+$royal: #4183D7;
+
+@mixin luxury-btn($color, $size, $b-color, $radius, $txt-color, $b-color,
+  $font-size) {
+  background-color: $color;
+  padding: $size;
+  border-color: $b-color;
+  border-radius: $radius;
+  letter-spacing: 2px;
+  color: $txt-color;
+  border-color: $b-color;
+  font-size: $font-size;
+  font-family: 'Quicksand', sans-serif;
+}
+
+
+//SMALL INDEX
+$btn-colors: white, black, $sand, $rose, $royal;
+$btn-types: casper, black, sand, rose, royal;
+$text-color: black, white, white, white, white;
+$border-color: black, black, $sand, $rose, $royal;
+$hover-bg-color: #BDC3C7 white white white white;
+$hover-color: white black black black black;
+$active-color: black white white white white;
+$small-index: 1;
+
+//BIG INDEX
+$padding-list: 10px, 20px, 40px, 10px, 20px, 40px, 40px;
+$radius-list: 2px, 2px, 2px, 20px, 30px, 50px, 2px;
+$btnsr: (type1: sm, type2:md, type3:lrg, type4: bullet-sm, type5: bullet-md, type6: bullet-lrg, type7: block);
+$font-size: 16px 16px 22px 16px 16px 22px 22px;
+$big-index: 1;
+
+@each $key,$type in $btnsr {
+  $small-index: 1;
+
+$current-border-color: nth($border-color, $small-index);
+
+@each $color in $btn-types {
+  .#{$color}-#{$type}-btn {
+    @include luxury-btn(nth($btn-colors, $small-index),
+    nth($padding-list, $big-index), black, nth($radius-list, $big-index), nth($text-color, $small-index)
+    , nth($border-color, $small-index), nth($font-size, $big-index));
+    outline: none;
+    @if $small-index > 2 {
+      outline: none;
+      border:none;
+      padding: nth($padding-list, $big-index) + 2;
+    }
+
+    @if $big-index == 7 {
+      width: 100%;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    -webkit-transition-duration: .4s; /* Safari */
+    transition-duration: .4s;
+  }
+  .#{$color}-#{$type}-btn:hover {
+    $current-color: nth($btn-colors, $small-index);
+    background-color: nth($hover-bg-color, $small-index);
+    color: nth($hover-color, $small-index);
+    border: .7px solid $current-color;
+    padding: nth($padding-list, $big-index) + 3;
+    cursor: pointer;
+
+    @if $big-index == 7 {
+      padding: 26px;
+      border: 2px solid $current-color;
+    }
+
+  }
+  .#{$color}-#{$type}-btn:active {
+    background-color: nth($btn-colors, $small-index);
+    color: nth($active-color, $small-index);
+    padding: nth($padding-list, $big-index) + 1;
+
+    @if $big-index == 7 {
+      padding: 23px;
+    }
+  }
+  // UP THE LITTLE INDEX
+  $small-index: $small-index + 1;
+}
+  //UP THE BIG INDEX
+  $big-index: $big-index + 1;
+}
